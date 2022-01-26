@@ -304,6 +304,18 @@ namespace SparkleShare {
             
             }).Start ();
         }
+        
+        public void CheckForUpdatesClicked() {
+            new Thread (() => {
+                while (!SparkleShare.Controller.RepositoriesLoaded)
+                    Thread.Sleep (100);
+
+                foreach (var repo in SparkleShare.Controller.Repositories) {
+                    repo.SyncDown();
+                    repo.SyncUp();
+                }
+            }).Start ();
+        }
 
         public void AddHostedProjectClicked ()
         {

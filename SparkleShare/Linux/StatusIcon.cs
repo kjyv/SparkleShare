@@ -37,6 +37,7 @@ namespace SparkleShare {
 
         Menu menu;
         MenuItem recent_events_item;
+        MenuItem check_for_updates_item;
         MenuItem quit_item;
         MenuItem state_item;
         SparkleMenuItem [] state_menu_items;
@@ -221,7 +222,9 @@ namespace SparkleShare {
 
             (folder_item.Submenu as Menu).Add (this.recent_events_item);
 
-
+            this.check_for_updates_item = new MenuItem("Check for Updates");
+            this.check_for_updates_item.Sensitive = true;
+            
             this.quit_item    = new MenuItem ("Quit") { Sensitive = Controller.QuitItemEnabled };
             MenuItem add_item = new MenuItem ("Sync Remote Project…");
 
@@ -249,11 +252,14 @@ namespace SparkleShare {
             about_item.Activated              += delegate { Controller.AboutClicked (); };
             add_item.Activated                += delegate { Controller.AddHostedProjectClicked (); };
             this.recent_events_item.Activated += delegate { Controller.RecentEventsClicked (); };
+            this.check_for_updates_item.Activated += delegate { Controller.CheckForUpdatesClicked(); };
             this.quit_item.Activated          += delegate { Controller.QuitClicked (); };
 
             this.menu.Add (new SeparatorMenuItem ());
             this.menu.Add (add_item);
             this.menu.Add (link_code_item);
+            this.menu.Add (new SeparatorMenuItem ());            
+            this.menu.Add( check_for_updates_item);
             this.menu.Add (new SeparatorMenuItem ());            
             this.menu.Add (about_item);
             this.menu.Add (new SeparatorMenuItem ());            

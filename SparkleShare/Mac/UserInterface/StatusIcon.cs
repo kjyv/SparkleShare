@@ -31,8 +31,8 @@ namespace SparkleShare {
         private NSMenu menu, submenu, link_code_submenu;
         private SparkleMenuDelegate menu_delegate;
 
-        private NSMenuItem state_item, folder_item, add_item, about_item, recent_events_item, quit_item,
-            code_item, copy_item, link_code_item;
+        private NSMenuItem state_item, folder_item, add_item, about_item, recent_events_item,
+            check_for_updates, quit_item, code_item, copy_item, link_code_item;
 
         private NSMenuItem [] folder_menu_items, try_again_menu_items, pause_menu_items,
             resume_menu_items, state_menu_items;
@@ -124,6 +124,11 @@ namespace SparkleShare {
             this.recent_events_item = new NSMenuItem () {
                 Title   = "Recent Changes…",
                 Enabled = Controller.RecentEventsItemEnabled
+            };
+                        
+            this.check_for_updates = new NSMenuItem () {
+                Title   = "Check for Updates",
+                Enabled = true 
             };
 
             this.link_code_item = new NSMenuItem ();
@@ -225,6 +230,8 @@ namespace SparkleShare {
             
             if (Controller.RecentEventsItemEnabled)
                 this.recent_events_item.Activated += delegate { Controller.RecentEventsClicked (); };
+            
+            this.check_for_updates.Activated += delegate { Controller.CheckForUpdatesClicked(); };
 
             this.add_item.Activated   += delegate { Controller.AddHostedProjectClicked (); };
             this.about_item.Activated += delegate { Controller.AboutClicked (); };
@@ -238,6 +245,7 @@ namespace SparkleShare {
             this.submenu = new NSMenu ();
 
             this.submenu.AddItem (this.recent_events_item);
+            this.submenu.AddItem (this.check_for_updates);
             this.submenu.AddItem (this.add_item);
             this.submenu.AddItem (NSMenuItem.SeparatorItem);
             this.submenu.AddItem (link_code_item);
